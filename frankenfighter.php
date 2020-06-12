@@ -33,7 +33,6 @@ define('FRANKENFIGHTER_IMAGE_URL', FRANKENFIGHTER_BASE_URL.'/assets/images/');
 wp_register_script('mithril', 'https://unpkg.com/mithril/mithril.js', null, null, true);
 wp_register_script('frankenfighter', FRANKENFIGHTER_BASE_URL.'/assets/js/frankenfighter.js', null, null, true);
 
-wp_enqueue_script('jquery');
 wp_enqueue_script('mithril');
 wp_enqueue_script('frankenfighter');
 
@@ -62,19 +61,5 @@ function frankenfighter_shortcode($atts) {
 	
 	return '<div class="frankenfighter" style="text-align: center;" data-config="'.$config.'"></div>';
 }
-
-function frankenfighter_admin() {
-	wp_register_script('jsoneditor-js', 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.0.0/jsoneditor.min.js', null, null, true);
-	wp_register_style('jsoneditor-css', 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.0.0/jsoneditor.min.css');
-	wp_register_script('frankenfighter-admin', FRANKENFIGHTER_BASE_URL.'/assets/js/frankenfighter-admin.js', null, null, true);
-
-	wp_enqueue_script('jsoneditor-js');
-	wp_enqueue_style('jsoneditor-css');
-	wp_enqueue_script('frankenfighter-admin');
-
-	// '<div class="jsoneditor" data-config="'.$config.'" style="width: 400px; height: 400px;"></div>'
-}
-
-//frankenfighter_admin();
 
 add_shortcode('frankenfighter', 'frankenfighter_shortcode');

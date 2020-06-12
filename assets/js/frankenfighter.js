@@ -1,9 +1,5 @@
-jQuery(document).ready(function() {
-	jQuery('.frankenfighter').each(frankenfighter);
-});
-
-function frankenfighter() {
-	m.render(this, m(frankenfighter.Monster, { configuration: JSON.parse(decodeURIComponent(jQuery(this).attr('data-config').replace(/\+/g, ' '))) }));
+function frankenfighter(el) {
+	m.render(el, m(frankenfighter.Monster, { configuration: JSON.parse(decodeURIComponent(el.dataset.config.replace(/\+/g, ' '))) }));
 }
 
 (function() {
@@ -50,4 +46,6 @@ function frankenfighter() {
 			m('div', { style: { position: 'relative' } }, m(ff.Tail, v.attrs.configuration.tail), v.attrs.configuration.legs.map(leg => m(ff.Leg, leg)))
 		)
 	};
+
+	document.querySelectorAll('.frankenfighter').forEach(frankenfighter);
 })();
