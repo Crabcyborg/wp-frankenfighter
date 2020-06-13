@@ -47,6 +47,8 @@ function frankenfighter_shortcode($atts) {
 			// using a database option
 			$config = get_option('jsoneditor_frankenfighter_'.$atts['key']);
 		}
+
+		$config = htmlentities($config, ENT_COMPAT | ENT_HTML401, 'UTF-8'); // help protect us from XSS attacks if the data in option is compromised
 	} elseif(isset($atts['config'])) {
 		// raw encoded data
 		$config = $atts['config'];
