@@ -11,7 +11,7 @@
  * Plugin Name:  Frankenfighter
  * Description:  Use the WordPress CMS to build your very own Frankenstein
  * Version:      0.0.1
- * Plugin URI:   https://wp-frankenfighter.crabcyb.org/lady-tiger
+ * Plugin URI:   https://wordpress.crabcyb.org
  * Author:       Mike Letellier
  * Author URI:   https://crabcyb.org/
  *
@@ -28,10 +28,10 @@
 
 define('FRANKENFIGHTER_BASE_PATH', plugin_dir_path(__FILE__));
 define('FRANKENFIGHTER_BASE_URL', plugin_dir_url(__FILE__));
-define('FRANKENFIGHTER_IMAGE_URL', FRANKENFIGHTER_BASE_URL.'/assets/images/');
+define('FRANKENFIGHTER_IMAGE_URL', FRANKENFIGHTER_BASE_URL.'assets/images/');
 
 wp_register_script('mithril', 'https://unpkg.com/mithril/mithril.js', null, null, true);
-wp_register_script('frankenfighter', FRANKENFIGHTER_BASE_URL.'/assets/js/frankenfighter.js', null, null, true);
+wp_register_script('frankenfighter', FRANKENFIGHTER_BASE_URL.'assets/js/frankenfighter.js', null, null, true);
 
 wp_enqueue_script('mithril');
 wp_enqueue_script('frankenfighter');
@@ -42,10 +42,10 @@ function frankenfighter_image($image) {
 
 function frankenfighter_shortcode($atts) {
 	if(isset($atts['key'])) {
-		$keys = ($key_csv = get_option('frankenfighter_keys')) ? explode(',', $key_csv) : [];
+		$keys = ($key_csv = get_option('jsoneditor_frankenfighter_keys')) ? explode(',', $key_csv) : [];
 		if(in_array($atts['key'], $keys)) {
 			// using a database option
-			$config = get_option('frankenfighter_'.$atts['key']);
+			$config = get_option('jsoneditor_frankenfighter_'.$atts['key']);
 		}
 	} elseif(isset($atts['config'])) {
 		// raw encoded data
