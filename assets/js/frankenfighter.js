@@ -1,12 +1,14 @@
 function frankenfighter(el) {
 	const decoded_json_string = decodeURIComponent(el.dataset.config.replace(/\+/g, ' '));
-	
+	let configuration;
+
 	try {
-		const parsed = JSON.parse(decoded_json_string);
-		m.render(el, m(frankenfighter.Monster, { configuration: parsed }));
-    } catch (e) {
-    
+		configuration = JSON.parse(decoded_json_string);
+	} catch (e) {
+		return;
 	}
+
+	m.render(el, m(frankenfighter.Monster, { configuration }));
 }
 
 (function() {
