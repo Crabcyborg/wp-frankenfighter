@@ -42,13 +42,9 @@ function frankenfighter_image($image) {
 
 function frankenfighter_shortcode($atts) {
 	if(isset($atts['key'])) {
-		$keys = ($key_csv = get_option('jsoneditor_frankenfighter_keys')) ? explode(',', $key_csv) : [];
-		if(in_array($atts['key'], $keys)) {
-			// using a database option
-			$config = get_option('jsoneditor_frankenfighter_'.$atts['key']);
-		}
-
-		$config = htmlentities($config, ENT_COMPAT | ENT_HTML401, 'UTF-8'); // help protect us from XSS attacks if the data in option is compromised
+		// using a database option
+		$config = get_option('jsoneditor_frankenfighter_'.$atts['key']);
+		$config && $config = htmlentities($config, ENT_COMPAT | ENT_HTML401, 'UTF-8'); // help protect us from XSS attacks if the data in option is compromised
 	} elseif(isset($atts['config'])) {
 		// raw encoded data
 		$config = $atts['config'];
