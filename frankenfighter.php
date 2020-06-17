@@ -30,7 +30,7 @@ define('FRANKENFIGHTER_BASE_PATH', plugin_dir_path(__FILE__));
 define('FRANKENFIGHTER_BASE_URL', plugin_dir_url(__FILE__));
 define('FRANKENFIGHTER_IMAGE_URL', FRANKENFIGHTER_BASE_URL.'assets/images/');
 
-wp_register_script('mithril', 'https://unpkg.com/mithril/mithril.js', null, null, true);
+wp_register_script('mithril', 'https://unpkg.com/mithril/mithril.js', null, null, true); // TODO before I submit I need to move mithril from a CDN
 wp_register_script('frankenfighter', FRANKENFIGHTER_BASE_URL.'assets/js/frankenfighter.js', null, null, true);
 
 wp_enqueue_script('mithril');
@@ -44,7 +44,7 @@ function frankenfighter_shortcode($atts) {
 	if(isset($atts['key'])) {
 		// using a database option
 		$config = get_option('jsoneditor_frankenfighter_'.$atts['key']);
-		$config && $config = htmlentities($config, ENT_COMPAT | ENT_HTML401, 'UTF-8'); // help protect us from XSS attacks if the data in option is compromised
+		$config && $config = esc_attr($config);
 	} elseif(isset($atts['config'])) {
 		// raw encoded data
 		$config = $atts['config'];
