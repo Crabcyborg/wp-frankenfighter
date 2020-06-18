@@ -36,15 +36,23 @@ wp_register_script('frankenfighter', FRANKENFIGHTER_BASE_URL.'assets/js/frankenf
 wp_enqueue_script('mithril');
 wp_enqueue_script('frankenfighter');
 
+/**
+ * @param string $image path
+ */
 function frankenfighter_image($image) {
 	return FRANKENFIGHTER_IMAGE_URL.$image.'.png';
 }
 
+/**
+ * @param array $atts
+ */
 function frankenfighter_shortcode($atts) {
 	if(isset($atts['key'])) {
-		// using a database option
-		$config = get_option('jsoneditor_frankenfighter_'.$atts['key']);
-		$config && $config = esc_attr($config);
+		if($key = sanitize_key($atts['key'])) {
+			// using a database option
+			$config = get_option('jsoneditor_frankenfighter_'.$key);
+			$config = is_array($config) ? urlencode(json_encode($config)) : FALSE;
+		}
 	} elseif(isset($atts['config'])) {
 		// raw encoded data
 		$config = $atts['config'];
@@ -57,7 +65,7 @@ function frankenfighter_shortcode($atts) {
 		$config = urlencode(json_encode(require(FRANKENFIGHTER_BASE_PATH."config/{$preset}.php")));
 	}
 	
-	return '<div class="frankenfighter" style="text-align: center;" data-config="'.$config.'"></div>';
+	return '<div class="frankenfighter" style="text-align: center;" data-config="'.esc_attr($config).'"></div>';
 }
 
 add_shortcode('frankenfighter', 'frankenfighter_shortcode');

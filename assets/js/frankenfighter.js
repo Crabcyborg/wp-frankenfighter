@@ -52,7 +52,10 @@ function frankenfighter(el) {
 				m(ff.Torso, {...v.attrs.configuration.torso}),
 				v.attrs.configuration.wings && v.attrs.configuration.wings.map(wing => m(ff.Wing, wing))
 			),
-			m('div', { style: { position: 'relative' } }, m(ff.Tail, v.attrs.configuration.tail), v.attrs.configuration.legs.map(leg => m(ff.Leg, leg)))
+			m('div', { style: { position: 'relative' } },
+				m(ff.Tail, v.attrs.configuration.tail),
+				(Array.isArray(v.attrs.configuration.legs) ? v.attrs.configuration.legs : Object.values(v.attrs.configuration.legs)).map(leg => m(ff.Leg, leg))
+			)
 		)
 	};
 
